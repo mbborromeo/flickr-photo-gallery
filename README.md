@@ -8,4 +8,5 @@ The main files I have written are:
 - js/data-jsonp.js
 - css/main.css
 
-To run, download the Repository from Git and double-click on the index.html file.
+To run, download the Repository from Git and double-click on the index.html file, or view live on GitHub Pages:
+https://mbborromeo.github.io/flickr-photo-gallery/
