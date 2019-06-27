@@ -7,12 +7,10 @@
  * Note: Flickr API call on index.html page has a callback function to jsonFlickrApi() which I defined below.
  */
 
-/* Global variables */
 var imageID="";
 var TOTAL_NUMBER_OF_IMAGES;
 var responseObject; //JSON response object from Flickr API call
 
-/* Global functions */
 //Render image in lightbox with previous/next buttons
 function renderImage( id ){
     if( id >= 0 && id <= TOTAL_NUMBER_OF_IMAGES-1 ){
@@ -49,9 +47,8 @@ function displayModal( index ){
     );
 }
 
-/* Load JSON from Flickr API call */
+//Load JSON from Flickr API call
 function jsonFlickrApi( data ){
-
     //To Do: Possible check if returned data from API call is not OK
     /*
     if(data.stat != "ok"){
@@ -93,10 +90,8 @@ function jsonFlickrApi( data ){
     document.getElementById("container").innerHTML = newContent;
 };
 
-
-/* Window onload means when window has loaded webpage, including images and scripts, etc. */
+//When window has loaded webpage, including images and scripts, then add event listeners for user's interactions
 window.onload = function(){
-
     //Fade in content when all images have loaded
     document.getElementById("section-gallery").style.background = "none";
     document.getElementById("container").style.opacity = "1";
