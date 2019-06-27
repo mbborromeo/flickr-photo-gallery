@@ -284,11 +284,12 @@ header span:hover {
 
 #display figure figcaption {
     /*position: absolute;*/
-    /*border: 1px solid yellow;*/
+    border: 1px solid white;
     /*bottom: 0;*/
     text-align: center;
     font-weight: bold;
     color: black;
+    padding-bottom: 5px;
 }
 
 #display .btn {
@@ -401,18 +402,17 @@ header span:hover {
 }
 
 /* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
+   EXAMPLE Media Queries for Responsive Design
+
+   iPhone 8: 414px (w) x 736px (h)
+   iPhone X: 375px (w) x 812px (h)
+   iPad: 1024px (w) x 768px (h)
    ========================================================================== */
 
 @media only screen and (min-width: 35em) {
     /* Style adjustments for viewports that meet the condition */
 }
 
-/* iPhone 8 Plus: 414px w x 736px h */
-/* iPad: 1024px w x 768px h */
-/* iPhone X: 375px h X 812px w */
 @media only screen and (max-width: 812px) {
     .tile {
         display: block;
@@ -459,7 +459,6 @@ header span:hover {
 }
 
 @media only screen and (max-width: 812px) and (orientation: portrait) {
-    /* For mobile devices */
     .tile {
         width: 100%;
         height: 33.33%; /* 50% */
