@@ -83,7 +83,6 @@ function jsonFlickrApi( data ){
                           '</div>' +
                         '</div>' +
                        '</div>';
-
     });
 
     //Update page with new content of image tiles
