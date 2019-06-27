@@ -17,7 +17,8 @@ var responseObject; //JSON response object from Flickr API call
 function renderImage( id ){
     if( id >= 0 && id <= TOTAL_NUMBER_OF_IMAGES-1 ){
         imageID = id;
-        document.getElementById("imgFull").src = responseObject.items[ imageID ].media.m; //large sized images
+        document.getElementById("imgFull").src = responseObject.items[ imageID ].media.m;
+
         //wait until image has loaded before changing title
         document.getElementById("imgFull").addEventListener("load", function(){
             document.getElementById("heading").innerHTML = responseObject.items[ imageID ].title;
@@ -74,21 +75,7 @@ function jsonFlickrApi( data ){
     responseObject.items.forEach( function (currentItem, i) {
         //Preload images
         imagesArray[i] = new Image();
-        imagesArray[i].src = currentItem.media.m; //mobile sized images
-
-        //Set value of event click listener to open up large image
-
-        //ES6 String Interpolation below does not work in IE Edge (11)
-        /*
-        newContent +=   `<div class="tile" data-id="${i}" onclick="displayModal( ${i} );">
-                            <div class="background-tile" style="background-image: url( ${imagesArray[i].src} );">
-                                <div class="hover-text">
-                                    <span>${responseObject.photoset.photo[i].title}</span><br />
-                                    ${responseObject.photoset.photo[i].datetaken}
-                                </div>
-                            </div>
-                        </div>`;
-        */
+        imagesArray[i].src = currentItem.media.m;
 
         newContent += '<div class="tile" data-id="' + i + '" ' + 'onclick="displayModal(' + i + '); ">' +
                         '<div class="background-tile" style="background-image: url(' + imagesArray[i].src + ');" >' +
@@ -99,12 +86,6 @@ function jsonFlickrApi( data ){
                           '</div>' +
                         '</div>' +
                        '</div>';
-
-        /*
-        divTile = document.createElement("div") approach, so can attach click listener dynamically
-
-        */
-
 
     });
 
