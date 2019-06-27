@@ -1,0 +1,56 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Flickr Image Gallery</title>
+        <meta name="description" content="Image gallery, HTML, CSS, Javascript">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="apple-touch-icon" href="icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css?v=20180922">
+    </head>
+
+    <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+        <!-- site content -->
+        <div class="wrapper">
+            <header>
+                <h1>Flickr Image Gallery</h1>
+            </header>
+
+            <section id="section-gallery">
+                <div id="container"></div>
+            </section>
+
+            <!-- modal display -->
+            <div id="display">
+                <figure>
+                    <img id="imgFull" src="" alt="" />
+                    <figcaption id="heading"></figcaption>
+                    <a class="btn" id="prevBtn" href="#">&lt;</a>
+                    <a class="btn" id="nextBtn" href="#">&gt;</a>
+                </figure>
+            </div>
+            <!-- end modal display -->
+        </div>
+        <!-- end site content -->
+
+        <!-- Modernizr library -->
+        <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+
+        <!-- Javascript files -->
+        <script src="js/plugins.js"></script>
+        <script src="js/data-jsonp.js"></script>
+        <!-- <script src="https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=8e3d2a98198fda8a0776cfa0a8fffa00&photoset_id=72157663313325205&user_id=27254400%40N04&extras=url_m%2C+url_l%2C+date_taken&format=json"></script> -->
+        <!-- Flickr Public Feed -->
+        <script src="https://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=jsonFlickrApi"></script>
+    </body>
+</html>
