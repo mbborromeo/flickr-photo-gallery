@@ -27,20 +27,31 @@ function renderImage( id ){
         //wait until image has loaded before changing title
         document.getElementById("imgFull").addEventListener("load", function(){
             document.getElementById("heading").innerHTML = imageDescription;
-        });
 
-        //Render Previous/Next buttons
-        if( imageID == 0 ){
-            document.getElementById("prevBtn").style.display = "none";
-            document.getElementById("nextBtn").style.display = "block";
-        } else if( imageID == TOTAL_NUMBER_OF_IMAGES-1 ){
-            document.getElementById("nextBtn").style.display = "none";
-            document.getElementById("prevBtn").style.display = "block";
-        } else {
-            document.getElementById("prevBtn").style.display = "block";
-            document.getElementById("nextBtn").style.display = "block";
-        }
+            //Render Previous/Next buttons
+            showButtons();
+        });
     }
+}
+
+//Show Previous/Next buttons
+function showButtons() {
+    if( imageID == 0 ){
+        document.getElementById("prevBtn").style.display = "none";
+        document.getElementById("nextBtn").style.display = "block";
+    } else if( imageID == TOTAL_NUMBER_OF_IMAGES-1 ){
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("prevBtn").style.display = "block";
+    } else {
+        document.getElementById("prevBtn").style.display = "block";
+        document.getElementById("nextBtn").style.display = "block";
+    }
+}
+
+//Hide Previous/Next buttons
+function hideButtons() {
+    document.getElementById("prevBtn").style.display = "none";
+    document.getElementById("nextBtn").style.display = "none";
 }
 
 //Clear image and description
@@ -134,6 +145,7 @@ window.onload = function(){
                 function(){
                   document.getElementById("display").style.display = "none";
                   //reset image path and description
+                  hideButtons();
                   clearImage();
                 },
                 525
