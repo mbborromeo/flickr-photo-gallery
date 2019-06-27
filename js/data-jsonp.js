@@ -7,7 +7,7 @@
  * Note: Flickr API call on index.html page has a callback function to jsonFlickrApi() which I defined below.
  */
 
-var imageID="";
+var imageID = "";
 var TOTAL_NUMBER_OF_IMAGES;
 var responseObject; //JSON response object from Flickr API call
 
@@ -15,23 +15,24 @@ var responseObject; //JSON response object from Flickr API call
 function renderImage( id ){
     if( id >= 0 && id <= TOTAL_NUMBER_OF_IMAGES-1 ){
         imageID = id;
-        let largePhoto = "";
-        let imageDescription = "";
 
         //Convert to big-sized Flickr image
-        largePhoto = responseObject.items[ imageID ].media.m.replace("_m", "_b");
-        document.getElementById("imgFull").src = largePhoto;
-
-        imageDescription = responseObject.items[ imageID ].title;
+        let largePhoto = responseObject.items[ imageID ].media.m.replace("_m", "_b");
+        document.getElementById("imgFull").getElementsByTagName("img")[0].src = largePhoto;
 
         //wait until image has loaded before changing title
-        document.getElementById("imgFull").addEventListener("load", function(){
-            document.getElementById("heading").innerHTML = imageDescription;
+        document.getElementById("imgFull").getElementsByTagName("img")[0].addEventListener("load",
+            function(){
+                document.getElementById("heading").innerHTML = responseObject.items[ imageID ].title;
 
-            //Render Previous/Next buttons
-            showButtons();
-        });
+                //Show figure container
+                document.getElementById("imgFull").style.opacity = "1";
+
+                showButtons();
+            }
+        );
     }
+
 }
 
 //Show Previous/Next buttons
@@ -56,13 +57,15 @@ function hideButtons() {
 
 //Clear image and description
 function clearImage() {
-    document.getElementById("imgFull").src = "";
+    document.getElementById("imgFull").getElementsByTagName("img")[0].src = "";
     document.getElementById("heading").innerHTML = "";
+    document.getElementById("imgFull").style.opacity = "0";
 }
 
 //Assigned to div image tile inside jsonFlickrApi for-loop and called when image tile is clicked
 function displayModal( index ){
     renderImage( index );
+
     document.getElementById("display").style.display = "block";
 
     setTimeout( function(){
