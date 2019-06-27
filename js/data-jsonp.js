@@ -15,7 +15,11 @@ var responseObject; //JSON response object from Flickr API call
 function renderImage( id ){
     if( id >= 0 && id <= TOTAL_NUMBER_OF_IMAGES-1 ){
         imageID = id;
-        document.getElementById("imgFull").src = responseObject.items[ imageID ].media.m;
+
+        //Convert to big-sized Flickr image
+        let largePhoto = responseObject.items[ imageID ].media.m.replace("_m", "_b");
+
+        document.getElementById("imgFull").src = largePhoto;
 
         //wait until image has loaded before changing title
         document.getElementById("imgFull").addEventListener("load", function(){
@@ -63,16 +67,11 @@ function jsonFlickrApi( data ){
     let imagesArray = new Array(); //array to preload images into
     let newContent = "";
 
-    let divTile;
-    let divBackground;
-    let divHoverText;
-    let spamTitle;
-
     //ES6 forEach on array to build content of image thumbnails
     responseObject.items.forEach( function (currentItem, i) {
         //Preload images
         imagesArray[i] = new Image();
-        imagesArray[i].src = currentItem.media.m;
+        imagesArray[i].src = currentItem.media.m; //Use mobile-sized Flickr image
 
         newContent += '<div class="tile" data-id="' + i + '" ' + 'onclick="displayModal(' + i + '); ">' +
                         '<div class="background-tile" style="background-image: url(' + imagesArray[i].src + ');" >' +
