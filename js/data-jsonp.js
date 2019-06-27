@@ -15,15 +15,18 @@ var responseObject; //JSON response object from Flickr API call
 function renderImage( id ){
     if( id >= 0 && id <= TOTAL_NUMBER_OF_IMAGES-1 ){
         imageID = id;
+        let largePhoto = "";
+        let imageDescription = "";
 
         //Convert to big-sized Flickr image
-        let largePhoto = responseObject.items[ imageID ].media.m.replace("_m", "_b");
-
+        largePhoto = responseObject.items[ imageID ].media.m.replace("_m", "_b");
         document.getElementById("imgFull").src = largePhoto;
+
+        imageDescription = responseObject.items[ imageID ].title;
 
         //wait until image has loaded before changing title
         document.getElementById("imgFull").addEventListener("load", function(){
-            document.getElementById("heading").innerHTML = responseObject.items[ imageID ].title;
+            document.getElementById("heading").innerHTML = imageDescription;
         });
 
         //Render Previous/Next buttons
@@ -38,6 +41,12 @@ function renderImage( id ){
             document.getElementById("nextBtn").style.display = "block";
         }
     }
+}
+
+//Clear image and description
+function clearImage() {
+    document.getElementById("imgFull").src = "";
+    document.getElementById("heading").innerHTML = "";
 }
 
 //Assigned to div image tile inside jsonFlickrApi for-loop and called when image tile is clicked
@@ -100,7 +109,7 @@ window.onload = function(){
         renderImage( proposedImageID );
     }
 
-    //When hover on modal display, show mouse cursor to pointer to indicate its clickable
+    //When hover on modal display, change mouse cursor to pointer to indicate its clickable
     document.getElementById("display").addEventListener("mouseover", function(ev){
         let target = ev.target.tagName.toLowerCase();
 
@@ -120,9 +129,14 @@ window.onload = function(){
         //Cater for event propagation to children.  Only want to register a click on the parent, which is a 'div' in this case.
         if( target === 'div' ){
             this.style.opacity = "0";
-            setTimeout( function(){
+
+            setTimeout(
+                function(){
                   document.getElementById("display").style.display = "none";
-                }, 525
+                  //reset image path and description
+                  clearImage();
+                },
+                525
             );
         }
     });
