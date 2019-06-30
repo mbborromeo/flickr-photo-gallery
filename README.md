@@ -8,5 +8,7 @@ The main files I have written are:
 - js/data-jsonp.js
 - css/main.css
 
+The layout is mobile responsive, and has been cross-browser compatibility tested on IE11+, Firefox and Chrome.
+
 To run, download the Repository from Git and double-click on the index.html file, or view live on GitHub Pages:
 https://mbborromeo.github.io/flickr-photo-gallery/
