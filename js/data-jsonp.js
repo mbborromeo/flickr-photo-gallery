@@ -81,7 +81,7 @@ function displayModal( index ){
 function jsonFlickrApi( data ){
     //To Do: Possible check if returned data from API call is not OK
     /*
-    if(!data.stat != "ok"){
+    if(data.stat != "ok"){
         console.log("Error reading JSON API call");
 		return; //Exit, do not continue
 	}
@@ -150,9 +150,7 @@ window.onload = function(){
             setTimeout(
                 function(){
                   document.getElementById("display").style.display = "none";
-                  //reset image path and description
-                  //hideButtons();//?
-                  clearImage();//and clear title?
+                  clearImage();
                 },
                 525
             );
