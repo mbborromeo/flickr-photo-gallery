@@ -20,7 +20,7 @@ function renderImage( id ){
         let largePhoto = responseObject.items[ imageID ].media.m.replace("_m", "_b");
         document.getElementById("imgFull").getElementsByTagName("img")[0].src = largePhoto;
 
-        //wait until image has loaded before changing title
+        //Wait until image has loaded before changing title
         document.getElementById("imgFull").getElementsByTagName("img")[0].addEventListener("load",
             function(){
                 document.getElementById("heading").innerHTML = responseObject.items[ imageID ].title;
@@ -32,7 +32,6 @@ function renderImage( id ){
             }
         );
     }
-
 }
 
 //Show Previous/Next buttons
@@ -64,6 +63,10 @@ function clearImage() {
 
 //Assigned to div image tile inside jsonFlickrApi for-loop and called when image tile is clicked
 function displayModal( index ){
+    //Empty image and button placeholder
+    clearImage();
+    hideButtons();
+
     renderImage( index );
 
     document.getElementById("display").style.display = "block";
@@ -78,7 +81,7 @@ function displayModal( index ){
 function jsonFlickrApi( data ){
     //To Do: Possible check if returned data from API call is not OK
     /*
-    if(data.stat != "ok"){
+    if(!data.stat != "ok"){
         console.log("Error reading JSON API call");
 		return; //Exit, do not continue
 	}
@@ -148,8 +151,8 @@ window.onload = function(){
                 function(){
                   document.getElementById("display").style.display = "none";
                   //reset image path and description
-                  hideButtons();
-                  clearImage();
+                  //hideButtons();//?
+                  clearImage();//and clear title?
                 },
                 525
             );
