@@ -257,7 +257,7 @@ header span:hover {
     transition: opacity 0.5s;
 }
 
-#display figure {
+#display #imgFull {
     /*border-radius: 15px; */
     max-width: 80vw; /* view width percentage of */
     /*max-height: 80vh;*/ /* view height percentage of */
@@ -268,9 +268,10 @@ header span:hover {
     margin: 0;
     background-color: white;
     text-align: center;
+    opacity: 0;
 }
 
-#display figure img {
+#display #imgFull img {
     border: 6px solid white;
     border-bottom: 0;
     /*display: block;  */
@@ -282,7 +283,7 @@ header span:hover {
     margin: 0 auto; */
 }
 
-#display figure figcaption {
+#display #imgFull figcaption {
     /*position: absolute;*/
     /*bottom: 0;*/
     text-align: center;
@@ -453,7 +454,7 @@ header span:hover {
         padding: 1.5% 2%;
     }
 
-    #display figure img {
+    #display #imgFull img {
         max-width: 60vw;
     }
 }

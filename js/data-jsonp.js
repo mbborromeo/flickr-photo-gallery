@@ -47,13 +47,6 @@ function showButtons() {
     }
 }
 
-//Close modal popup and reset details inside
-function clearImage() {
-    document.getElementById("imgFull").getElementsByTagName("img")[0].src = "";
-    document.getElementById("heading").innerHTML = "";//Clear heading
-    document.getElementById("imgFull").style.opacity = "0";
-}
-
 //Dynamically assigned to div tile inside buildImageTiles for loop and called when image tile is clicked
 function displayModal( index ){
     renderImage( index );
@@ -66,13 +59,17 @@ function displayModal( index ){
     );
 }
 
+//Close modal popup and reset details inside
+function clearImage() {
+    document.getElementById("imgFull").getElementsByTagName("img")[0].src = "";
+    document.getElementById("heading").innerHTML = "";//Clear heading
+    document.getElementById("imgFull").style.opacity = "0";
+}
+
 function buildImageTiles(){
     TOTAL_NUMBER_OF_IMAGES = responseObject.items.length;
     let imagesArray = new Array(); //array to preload images into
-    let newContent = "";
-    
-    //Reset image placeholder
-    clearImage();
+    let newContent = "";    
 
     //ES6 forEach on array to build content of image thumbnails
     responseObject.items.forEach( function (currentItem, i) {
@@ -118,21 +115,33 @@ window.onload = function(){
     document.getElementById("section-gallery").style.background = "none";
     document.getElementById("container").style.opacity = "1";
 
-    //Modal display buttons
+    //Load previous or next image
     function previousOrNextImage( inc ){
         let proposedImageID =  imageID + inc;
         renderImage( proposedImageID );
+    }
+    
+    function closeModal(){
+        document.getElementById("display").style.opacity = "0";
+
+        setTimeout(
+            function(){
+              document.getElementById("display").style.display = "none";
+              clearImage();
+            },
+            525
+        );
     }
 
     //When hover on modal display, change mouse cursor to pointer to indicate its clickable
     document.getElementById("display").addEventListener("mouseover", function(ev){
         let target = ev.target.tagName.toLowerCase();
 
-        //Cater for event propagation to children.  Only want to the click on the parent, which is a 'div' in this case
+        //Cater for event propagation to children.  Only want to register event for the parent
         if( target === 'div' ){
             this.style.cursor = "pointer";
         }
-        else{
+        else{ //ie. figure, img, figcaption
             this.style.cursor = "default";
         }
     });
@@ -141,17 +150,9 @@ window.onload = function(){
     document.getElementById("display").addEventListener("click", function(ev){
         let target = ev.target.tagName.toLowerCase();
 
-        //Cater for event propagation to children.  Only want to register a click on the parent, which is a 'div' in this case.
+        //Cater for event propagation to children.  Only want to register event for the parent
         if( target === 'div' ){
-            this.style.opacity = "0";
-
-            setTimeout(
-                function(){
-                  document.getElementById("display").style.display = "none";
-                  clearImage();
-                },
-                525
-            );
+            closeModal();
         }
     });
 
