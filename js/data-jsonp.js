@@ -34,7 +34,6 @@ function renderImage( id ){
     }
 }
 
-//Show Previous/Next buttons
 function showButtons() {
     if( imageID == 0 ){
         document.getElementById("prevBtn").style.display = "none";
@@ -48,20 +47,18 @@ function showButtons() {
     }
 }
 
-//Hide Previous/Next buttons
 function hideButtons() {
     document.getElementById("prevBtn").style.display = "none";
     document.getElementById("nextBtn").style.display = "none";
 }
 
-//Clear image and description
 function clearImage() {
     document.getElementById("imgFull").getElementsByTagName("img")[0].src = "";
-    document.getElementById("heading").innerHTML = "";
+    document.getElementById("heading").innerHTML = "";//Clear heading
     document.getElementById("imgFull").style.opacity = "0";
 }
 
-//Assigned to div image tile inside jsonFlickrApi for-loop and called when image tile is clicked
+//Dynamically assigned to div tile inside buildImageTiles for loop and called when image tile is clicked
 function displayModal( index ){
     //Empty image and button placeholder
     clearImage();
@@ -77,18 +74,7 @@ function displayModal( index ){
     );
 }
 
-//Load JSON from Flickr API call
-function jsonFlickrApi( data ){
-    //To Do: Possible check if returned data from API call is not OK
-    /*
-    if(data.stat != "ok"){
-        console.log("Error reading JSON API call");
-		return; //Exit, do not continue
-	}
-    */
-
-    //If status is OK, continue
-    responseObject = data;
+function buildImageTiles(){
     TOTAL_NUMBER_OF_IMAGES = responseObject.items.length;
     let imagesArray = new Array(); //array to preload images into
     let newContent = "";
@@ -110,8 +96,25 @@ function jsonFlickrApi( data ){
                        '</div>';
     });
 
-    //Update page with new content of image tiles
+    //Update page with built image tiles
     document.getElementById("container").innerHTML = newContent;
+}
+
+//Load JSON from Flickr API call on index.html page
+function jsonFlickrApi( data ){
+    //To Do: Possible check if returned data from API call is not OK
+    /*
+    if(data.stat != "ok"){
+        console.log("Error reading JSON API call");
+		return; //Exit, do not continue
+	}
+    */
+
+    //If status is OK, continue
+    responseObject = data;
+    
+    //Build image tiles
+    buildImageTiles();    
 };
 
 //When window has loaded webpage, including images and scripts, then add event listeners for user's interactions
@@ -157,7 +160,7 @@ window.onload = function(){
         }
     });
 
-    //Event handlers for Prev/Next buttons
+    //Event handlers for buttons
     document.getElementById("prevBtn").addEventListener("click", function(){
         previousOrNextImage(-1);
     });
