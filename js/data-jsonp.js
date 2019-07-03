@@ -20,8 +20,9 @@ function renderImage( id ){
         let largePhoto = responseObject.items[ imageID ].media.m.replace("_m", "_b");
         document.getElementById("imgFull").getElementsByTagName("img")[0].src = largePhoto;
 
-        //Wait until image has loaded before changing title
-        document.getElementById("imgFull").getElementsByTagName("img")[0].addEventListener("load",
+        //Wait until image has loaded before changing title and updating buttons
+        document.getElementById("imgFull").getElementsByTagName("img")[0].addEventListener(
+            "load", 
             function(){
                 document.getElementById("heading").innerHTML = responseObject.items[ imageID ].title;
                 
@@ -47,7 +48,7 @@ function showButtons() {
     }
 }
 
-//Dynamically assigned to div tile inside buildImageTiles for loop and called when image tile is clicked
+//Dynamically assigned to div tile onclick inside buildImageTiles() for loop
 function displayModal( index ){
     renderImage( index );
 
@@ -62,7 +63,7 @@ function displayModal( index ){
 //Close modal popup and reset details inside
 function clearImage() {
     document.getElementById("imgFull").getElementsByTagName("img")[0].src = "";
-    document.getElementById("heading").innerHTML = "";//Clear heading
+    document.getElementById("heading").innerHTML = "";
     document.getElementById("imgFull").style.opacity = "0";
 }
 
@@ -109,13 +110,12 @@ function jsonFlickrApi( data ){
     buildImageTiles();    
 };
 
-//When window has loaded webpage, including images and scripts, then add event listeners for user's interactions
+//When window has loaded webpage, including images and scripts
 window.onload = function(){
     //Fade in content when all images have loaded
     document.getElementById("section-gallery").style.background = "none";
     document.getElementById("container").style.opacity = "1";
 
-    //Load previous or next image
     function previousOrNextImage( inc ){
         let proposedImageID =  imageID + inc;
         renderImage( proposedImageID );
@@ -126,13 +126,15 @@ window.onload = function(){
 
         setTimeout(
             function(){
-              document.getElementById("display").style.display = "none";
               clearImage();
+              document.getElementById("display").style.display = "none";              
             },
             525
         );
     }
 
+    //Event listeners for user's interactions
+    
     //When hover on modal display, change mouse cursor to pointer to indicate its clickable
     document.getElementById("display").addEventListener("mouseover", function(ev){
         let target = ev.target.tagName.toLowerCase();
