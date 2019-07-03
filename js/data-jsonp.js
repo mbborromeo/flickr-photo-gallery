@@ -24,11 +24,11 @@ function renderImage( id ){
         document.getElementById("imgFull").getElementsByTagName("img")[0].addEventListener("load",
             function(){
                 document.getElementById("heading").innerHTML = responseObject.items[ imageID ].title;
-
-                //Show figure container
-                document.getElementById("imgFull").style.opacity = "1";
-
+                
                 showButtons();
+            
+                //Show photo frame
+                document.getElementById("imgFull").style.opacity = "1";             
             }
         );
     }
@@ -47,11 +47,7 @@ function showButtons() {
     }
 }
 
-function hideButtons() {
-    document.getElementById("prevBtn").style.display = "none";
-    document.getElementById("nextBtn").style.display = "none";
-}
-
+//Close modal popup and reset details inside
 function clearImage() {
     document.getElementById("imgFull").getElementsByTagName("img")[0].src = "";
     document.getElementById("heading").innerHTML = "";//Clear heading
@@ -60,10 +56,6 @@ function clearImage() {
 
 //Dynamically assigned to div tile inside buildImageTiles for loop and called when image tile is clicked
 function displayModal( index ){
-    //Empty image and button placeholder
-    clearImage();
-    hideButtons();
-
     renderImage( index );
 
     document.getElementById("display").style.display = "block";
@@ -78,6 +70,9 @@ function buildImageTiles(){
     TOTAL_NUMBER_OF_IMAGES = responseObject.items.length;
     let imagesArray = new Array(); //array to preload images into
     let newContent = "";
+    
+    //Reset image placeholder
+    clearImage();
 
     //ES6 forEach on array to build content of image thumbnails
     responseObject.items.forEach( function (currentItem, i) {
@@ -142,7 +137,7 @@ window.onload = function(){
         }
     });
 
-    //When click on modal display, hide modal display
+    //Close modal display when users clicks outside the image (on modal display)
     document.getElementById("display").addEventListener("click", function(ev){
         let target = ev.target.tagName.toLowerCase();
 
