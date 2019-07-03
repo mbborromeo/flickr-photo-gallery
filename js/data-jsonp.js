@@ -16,7 +16,7 @@ function renderImage( id ){
     if( id >= 0 && id <= TOTAL_NUMBER_OF_IMAGES-1 ){
         imageID = id;
 
-        //Convert to big-sized Flickr image
+        //Convert from mobile to big Flickr image size
         let largePhoto = responseObject.items[ imageID ].media.m.replace("_m", "_b");
         document.getElementById("imgFull").getElementsByTagName("img")[0].src = largePhoto;
 
@@ -54,9 +54,11 @@ function displayModal( index ){
 
     document.getElementById("display").style.display = "block";
 
-    setTimeout( function(){
+    setTimeout( 
+        function(){
           document.getElementById("display").style.opacity = "1";
-        }, 25
+        },
+        25
     );
 }
 
@@ -69,14 +71,13 @@ function clearImage() {
 
 function buildImageTiles(){
     TOTAL_NUMBER_OF_IMAGES = responseObject.items.length;
-    let imagesArray = new Array(); //array to preload images into
+    let imagesArray = new Array();
     let newContent = "";    
 
-    //ES6 forEach on array to build content of image thumbnails
-    responseObject.items.forEach( function (currentItem, i) {
-        //Preload images
+    //Preload images into array and dynamically build the content for the image tiles
+    responseObject.items.forEach( function (currentItem, i) {        
         imagesArray[i] = new Image();
-        imagesArray[i].src = currentItem.media.m; //Use mobile-sized Flickr image
+        imagesArray[i].src = currentItem.media.m; //m is for mobile-sized Flickr image
 
         newContent += '<div class="tile" data-id="' + i + '" ' + 'onclick="displayModal(' + i + '); ">' +
                         '<div class="background-tile" style="background-image: url(' + imagesArray[i].src + ');" >' +
