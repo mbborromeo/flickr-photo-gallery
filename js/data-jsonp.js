@@ -95,19 +95,16 @@ function buildImageTiles(){
 }
 
 //Load JSON from Flickr API call on index.html page
-function jsonFlickrApi( data ){
-    //To Do: Possible check if returned data from API call is not OK
+function jsonFlickrApi( data ){    
     /*
+    //To Do: Possible check if returned data from API call is not OK
     if(data.stat != "ok"){
         console.log("Error reading JSON API call");
 		return; //Exit, do not continue
 	}
     */
 
-    //If status is OK, continue
-    responseObject = data;
-    
-    //Build image tiles
+    responseObject = data;    
     buildImageTiles();    
 };
 
